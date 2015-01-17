@@ -141,16 +141,22 @@ define([
 					}
 				}
 
-				function fail() {
+				function fail(err) {
 					var batch;
+					var msg;
 					var i;
 
 					// Iterate batches
 					for (i = batches[LENGTH]; i--;) {
 						batch = batches[i];
+						msg = [
+							batch[QUERIES].join(','),
+							err.status,
+							err.statusText
+						].join('|');
 
 						// Reject (with original queries as argument)
-						batch.reject(batch[QUERIES]);
+						batch.reject(new Error(msg));
 					}
 				}
 
