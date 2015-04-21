@@ -88,6 +88,7 @@ define([
 
 			// Not in cache, add it!
 			result = me[id] = node;   // Reuse ref to node (avoids object creation)
+
 		}
 
 		// We have to deep traverse the graph before we do any expiration (as more data for this object can be available)
@@ -231,6 +232,11 @@ define([
 				generation[NEXT] = current[NEXT];
 				current[NEXT] = generation;
 			}
+		}
+
+		// signal out any cached object.
+		if (result && result[_INDEXED]) {
+			me.signal('put', result);
 		}
 
 		return result;
