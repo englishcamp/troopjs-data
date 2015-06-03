@@ -81,9 +81,7 @@ define([ "troopjs-core/mixin/base" ], function QueryModule(Base) {
 					/* falls through */
 					case "'" :  // Single quote
 						// Set / unset quote char
-						q = q === c
-							? UNDEFINED
-							: c;
+						q = q === c ? UNDEFINED : (q || c);
 						break;
 
 					case OP_ID :
